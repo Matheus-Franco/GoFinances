@@ -23,26 +23,29 @@ const New: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
 
-  const handleSubmit = useCallback(async (data: SignUpFormData) => {
-    try {
-      const schema = Yup.object().shape({
-        title: Yup.string().required(),
-        value: Yup.number().required(),
-        category: Yup.string().required(),
-        type: Yup.string().required(),
-      });
+  const handleSubmit = useCallback(
+    async (data: SignUpFormData) => {
+      try {
+        const schema = Yup.object().shape({
+          title: Yup.string().required('Campo obrigatório.'),
+          value: Yup.number().required('Campo obrigatório.'),
+          category: Yup.string().required('Campo obrigatório.'),
+          type: Yup.string().required('Campo obrigatório.'),
+        });
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
+        await schema.validate(data, {
+          abortEarly: false,
+        });
 
-      await api.post('/transactions', data);
+        await api.post('/transactions', data);
 
-      history.push('/');
-    } catch (err) {
-      alert('Preencha todos os campos.');
-    }
-  }, []);
+        history.push('/');
+      } catch (err) {
+        alert('Preencha todos os campos.');
+      }
+    },
+    [history],
+  );
 
   return (
     <>
