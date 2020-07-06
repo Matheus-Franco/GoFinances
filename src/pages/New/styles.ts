@@ -11,17 +11,34 @@ export const Container = styled.div`
     flex-direction: column;
     margin-top: 24px;
 
-    button {
-      margin-top: 24px;
-      padding: 18px;
-      border-radius: 10px;
-      background: #ff9000;
-      border: none;
-      transition: 0.4s;
+    div {
+      display: flex;
+      justify-content: flex-end;
 
-      &:hover {
-        background: #5636d3;
+      button {
+        margin-top: 24px;
+        margin-left: 18px;
+        width: 224px;
+        transition: 0.4s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #ff872c;
         color: #fff;
+        border-radius: 5px;
+        padding: 15px 80px;
+        border: 0;
+
+        &:hover {
+          background: #5636d3;
+          color: #fff;
+        }
+
+        a {
+          text-decoration: none;
+          color: #fff;
+        }
       }
     }
   }

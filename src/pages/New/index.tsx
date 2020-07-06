@@ -3,7 +3,7 @@ import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { AiFillCheckCircle } from 'react-icons/ai';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 import api from '../../services/api';
 
@@ -61,7 +61,12 @@ const New: React.FC = () => {
           />
           <Input icon={AiFillCheckCircle} name="type" placeholder="Tipo" />
 
-          <button type="submit">Salvar</button>
+          <div>
+            <button type="button">
+              <Link to="/">Cancelar</Link>
+            </button>
+            <button type="submit">Salvar</button>
+          </div>
         </Form>
       </Container>
     </>
