@@ -6,6 +6,7 @@ import { AiFillCheckCircle } from 'react-icons/ai';
 import { useHistory, Link } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
+import getValidationErrors from '../../utils/getValidationErrors';
 
 import api from '../../services/api';
 
@@ -52,9 +53,11 @@ const New: React.FC = () => {
   const handleSubmit = useCallback(
     async (data: SignUpFormData) => {
       try {
+        formRef.current?.setErrors({});
+
         const schema = Yup.object().shape({
           title: Yup.string().required('Campo obrigatório.'),
-          value: Yup.number().required('Campo obrigatório.'),
+          value: Yup.string().required('Campo obrigatório.'),
           category: Yup.string().required('Campo obrigatório.'),
           type: Yup.string().required('Campo obrigatório.'),
         });
@@ -70,6 +73,9 @@ const New: React.FC = () => {
         notifySucess();
       } catch (err) {
         notifyError();
+
+        const errors = getValidationErrors(err);
+        formRef.current?.setErrors(errors);
       }
     },
     [history, notifySucess, notifyError],
