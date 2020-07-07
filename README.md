@@ -22,3 +22,5 @@ Back-end Repository: https://github.com/Matheus-Franco/desafio-database-upload
 💡 Form to add new transactions.
 <br />
 💡 Success/error notification (react-toastify).
+<br />
+💡 Tooltip.
