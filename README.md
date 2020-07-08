@@ -24,3 +24,5 @@ Back-end Repository: https://github.com/Matheus-Franco/desafio-database-upload
 💡 Success/error notification (react-toastify).
 <br />
 💡 Tooltip.
+<br />
+💡 Loading animation while the request is not completed.
