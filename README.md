@@ -1,13 +1,27 @@
-# 💲 GoFinances
 
-<h3>About the Project:</h3>
+<div align="center">
 
-An application for transactions management, the GoFinances.
-<br />
-Back-end Repository: https://github.com/Matheus-Franco/desafio-database-upload
+![](/.github/logo1.png)
+</div>
 <br />
 
-<h3>Test Specification:</h3>
+
+<p align="center">🚀 An application for transactions management, the <strong>GoFinances</strong>.</p>
+
+<div align="center">
+
+![](https://img.shields.io/github/forks/Matheus-Franco/GoFinances)
+![](https://img.shields.io/static/v1?label=Yarn&message=v1.22.4&color=<COLOR>&style=<STYLE>&logo=<LOGO>)
+
+</div>
+
+---
+## 🎥 Visuals
+![](/.github/addpage.jpeg)
+
+
+## 🔃 Test Specification
+```
 ✔ Dashboard should be able to list the totla balance inside the cards.
 <br />
 ✔ Dashboard should be able to list transactions.
@@ -16,13 +30,46 @@ Back-end Repository: https://github.com/Matheus-Franco/desafio-database-upload
 <br />
 ✔ Dashboard should be able to upload a file.
 <br />
+```
+## 💡 Extras
 
-<h3>Extra:</h3>
+ - Form to add new transactions.
+<br />
+ - Success/error notification (react-toastify).
+<br />
+ - Tooltip.
+<br />
+ - Loading animation while the request is not completed.
 
-💡 Form to add new transactions.
-<br />
-💡 Success/error notification (react-toastify).
-<br />
-💡 Tooltip.
-<br />
-💡 Loading animation while the request is not completed.
+## 🚀 Techs
+- <a href="https://github.com/Rocketseat/unform">@unform/core</a>
+- <a href="https://github.com/Rocketseat/unform">@unform/web</a>
+- <a href="https://github.com/axios/axios">axios</a>
+- <a href="https://polished.js.org/docs/">polished</a>
+- <a href="https://github.com/facebook/react">react</a>
+- <a href="https://github.com/react-dropzone/react-dropzone">react-dropzone</a>
+- <a href="https://github.com/react-icons/react-icons">react-icons</a>
+- <a href="https://github.com/fkhadra/react-toastify">react-toastify</a>
+- <a href="https://styled-components.com/docs">styled-components</a>
+- <a href="https://www.typescriptlang.org/">typescript</a>
+- <a href="https://github.com/jquense/yup">yup</a>
+
+
+## 👨‍💻 Installation
+```
+## Clone this repository
+1. git clone https://github.com/Matheus-Franco/GoFinances.git
+
+## Go into the repository
+2. cd GoFinances
+
+## install all dependencies
+3. yarn
+
+## Run
+4. yarn start (to start the application)
+```
+
+
+## ➕ Back-end Repository
+https://github.com/Matheus-Franco/desafio-database-upload

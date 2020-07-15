@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FaTrashAlt } from 'react-icons/fa';
 
 import income from '../../assets/income.svg';
 import outcome from '../../assets/outcome.svg';
@@ -65,6 +66,12 @@ const Dashboard: React.FC = () => {
     loadTransactions();
   }, []);
 
+  /*
+  async function handleDeleteTransaction(id): Promise<void> {
+    await api.delete(`/transactions/${id}`);
+  }
+  */
+
   return (
     <>
       <Header />
@@ -120,6 +127,12 @@ const Dashboard: React.FC = () => {
 
                       <td>{transaction.category.title}</td>
                       <td>{transaction.formattedDate}</td>
+
+                      {/* <td>
+                        <button>
+                          <FaTrashAlt />
+                        </button>
+                      </td> */}
                     </tr>
                   ))}
                 </tbody>
