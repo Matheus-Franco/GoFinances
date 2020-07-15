@@ -1,7 +1,7 @@
 
 <div align="center">
 
-![](/.github/logo1.png)
+![](/.github/logo2.png)
 </div>
 <br />
 
