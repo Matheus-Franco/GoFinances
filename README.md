@@ -34,11 +34,10 @@
 ## 💡 Extras
 
  - Form to add new transactions.
-<br />
  - Success/error notification (react-toastify).
-<br />
+
  - Tooltip.
-<br />
+
  - Loading animation while the request is not completed.
 
 ## 🚀 Techs
