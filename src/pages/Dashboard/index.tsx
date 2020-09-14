@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 
 import income from '../../assets/income.svg';
@@ -66,11 +66,18 @@ const Dashboard: React.FC = () => {
     loadTransactions();
   }, []);
 
-  /*
-  async function handleDeleteTransaction(id): Promise<void> {
-    await api.delete(`/transactions/${id}`);
-  }
-  */
+  const handleDeleteTransaction = useCallback(
+    async (id: string) => {
+      await api.delete(`/transactions/${id}`);
+
+      const updatedTransactions = transactions.filter(
+        transaction => transaction.id !== id,
+      );
+
+      setTransactions(updatedTransactions);
+    },
+    [transactions],
+  );
 
   return (
     <>
@@ -104,41 +111,44 @@ const Dashboard: React.FC = () => {
         {loading ? (
           <Loading />
         ) : (
-            <TableContainer>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Título</th>
-                    <th>Preço</th>
-                    <th>Categoria</th>
-                    <th>Data</th>
+          <TableContainer>
+            <table>
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Preço</th>
+                  <th>Categoria</th>
+                  <th>Data</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {transactions.map(transaction => (
+                  <tr key={transaction.id}>
+                    <td className="title">{transaction.title}</td>
+
+                    <td className={transaction.type}>
+                      {transaction.type === 'outcome' && ' - '}
+                      {transaction.formattedValue}
+                    </td>
+
+                    <td>{transaction.category.title}</td>
+                    <td>{transaction.formattedDate}</td>
+
+                    <td>
+                      <button
+                        onClick={() => handleDeleteTransaction(transaction.id)}
+                        type="button"
+                      >
+                        <FaTrashAlt />
+                      </button>
+                    </td>
                   </tr>
-                </thead>
-
-                <tbody>
-                  {transactions.map(transaction => (
-                    <tr key={transaction.id}>
-                      <td className="title">{transaction.title}</td>
-
-                      <td className={transaction.type}>
-                        {transaction.type === 'outcome' && ' - '}
-                        {transaction.formattedValue}
-                      </td>
-
-                      <td>{transaction.category.title}</td>
-                      <td>{transaction.formattedDate}</td>
-
-                      {/* <td>
-                        <button>
-                          <FaTrashAlt />
-                        </button>
-                      </td> */}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </TableContainer>
-          )}
+                ))}
+              </tbody>
+            </table>
+          </TableContainer>
+        )}
       </Container>
     </>
   );
