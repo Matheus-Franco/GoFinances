@@ -5,13 +5,14 @@ import * as Yup from 'yup';
 import { AiFillCheckCircle } from 'react-icons/ai';
 import { useHistory, Link } from 'react-router-dom';
 
-import { toast } from 'react-toastify';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import api from '../../services/api';
 
 import Header from '../../components/Header';
 import Input from '../../components/Input';
+
+import { notifySuccess, notifyError } from '../../components/Toast';
 
 import { Container, Title } from './styles';
 
@@ -26,30 +27,6 @@ interface SignUpFormData {
 const New: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
-
-  const notifySucess = useCallback((): void => {
-    toast.success('Transação adicionada com sucesso!', {
-      position: 'top-right',
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  }, []);
-
-  const notifyError = useCallback((): void => {
-    toast.error('Preencha todos os campos!', {
-      position: 'top-right',
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  }, []);
 
   const handleSubmit = useCallback(
     async (data: SignUpFormData) => {
@@ -72,7 +49,7 @@ const New: React.FC = () => {
 
         history.push('/');
 
-        notifySucess();
+        notifySuccess();
       } catch (err) {
         notifyError();
 
@@ -80,7 +57,7 @@ const New: React.FC = () => {
         formRef.current?.setErrors(errors);
       }
     },
-    [history, notifySucess, notifyError],
+    [history],
   );
 
   return (

@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { TiDocumentText } from 'react-icons/ti';
+
 import api from '../../services/api';
 
 import Header from '../../components/Header';
 
-import { Container } from './styles';
+import formatValue from '../../utils/formatValue';
+
+import {
+  Container,
+  TableContainer,
+  Description,
+  DescriptionContent,
+} from './styles';
 
 interface Transaction {
   id: string;
@@ -13,12 +22,19 @@ interface Transaction {
   formattedValue: string;
   formattedDate: string;
   type: 'income' | 'outcome';
-  category: { title: string };
+  description: string;
+  category: {
+    title: string;
+  };
   created_at: Date;
 }
 
+type idTransactionProp = {
+  id: string;
+};
+
 const TransactionDetailed: React.FC = () => {
-  const { id } = useParams();
+  const { id } = useParams<idTransactionProp>();
 
   const [transaction, setTransaction] = useState<Transaction>(
     {} as Transaction,
@@ -28,18 +44,64 @@ const TransactionDetailed: React.FC = () => {
     async function loadTransaction(): Promise<void> {
       const response = await api.get(`transactions/${id}`);
 
-      setTransaction(response.data);
+      const transactionsFormatted = {
+        ...response.data,
+        formattedValue: formatValue(response.data.value),
+        formattedDate: new Date(transaction.created_at).toLocaleDateString(
+          'pt-br',
+        ),
+      };
+
+      setTransaction(transactionsFormatted);
     }
 
     loadTransaction();
-  }, [id]);
+  }, [id, transaction.created_at]);
 
   return (
     <>
-      <Header size="large" />
+      <Header size="small" />
 
       <Container>
-        <h1>{transaction.title}</h1>
+        {transaction ? (
+          <TableContainer>
+            <table>
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Preço</th>
+                  <th>Categoria</th>
+                  <th>Data</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td className="title">{transaction.title}</td>
+                  <td className={transaction.type}>
+                    {transaction.type === 'outcome' && ' - '}
+                    {transaction.formattedValue}
+                  </td>
+
+                  {transaction.category && (
+                    <td>{transaction.category.title}</td>
+                  )}
+
+                  <td>{transaction.formattedDate}</td>
+                </tr>
+              </tbody>
+            </table>
+          </TableContainer>
+        ) : null}
+
+        <Description>
+          <div className="description-title">
+            <TiDocumentText />
+            Descrição
+          </div>
+
+          <DescriptionContent>{transaction.description}</DescriptionContent>
+        </Description>
       </Container>
     </>
   );
