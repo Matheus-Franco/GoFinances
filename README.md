@@ -35,10 +35,9 @@
 
  - Form to add new transactions.
  - Success/error notification (react-toastify).
-
  - Tooltip.
-
  - Loading animation while the request is not completed.
+ - Option to delete a specific transaction.
 
 ## 🚀 Techs
 - <a href="https://github.com/Rocketseat/unform">@unform/core</a>
