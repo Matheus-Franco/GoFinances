@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 
+import { useHistory } from 'react-router-dom';
 import income from '../../assets/income.svg';
 import outcome from '../../assets/outcome.svg';
 import total from '../../assets/total.svg';
@@ -35,6 +36,8 @@ const Dashboard: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [balance, setBalance] = useState<Balance>({} as Balance);
   const [loading, setLoading] = useState<boolean>(true);
+
+  const history = useHistory();
 
   useEffect(() => {
     async function loadTransactions(): Promise<void> {
@@ -77,6 +80,15 @@ const Dashboard: React.FC = () => {
       setTransactions(updatedTransactions);
     },
     [transactions],
+  );
+
+  const handleNavigateToDetail = useCallback(
+    async (id: string) => {
+      await api.get(`/transactions/${id}`);
+
+      history.push(`/${id}`);
+    },
+    [history],
   );
 
   return (
@@ -125,7 +137,15 @@ const Dashboard: React.FC = () => {
               <tbody>
                 {transactions.map(transaction => (
                   <tr key={transaction.id}>
-                    <td className="title">{transaction.title}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="title"
+                        onClick={() => handleNavigateToDetail(transaction.id)}
+                      >
+                        {transaction.title}
+                      </button>
+                    </td>
 
                     <td className={transaction.type}>
                       {transaction.type === 'outcome' && ' - '}

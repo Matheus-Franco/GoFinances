@@ -20,6 +20,7 @@ interface SignUpFormData {
   value: number;
   category: string;
   type: string;
+  description: string;
 }
 
 const New: React.FC = () => {
@@ -60,6 +61,7 @@ const New: React.FC = () => {
           value: Yup.string().required('Campo obrigatório.'),
           category: Yup.string().required('Campo obrigatório.'),
           type: Yup.string().required('Campo obrigatório.'),
+          description: Yup.string(),
         });
 
         await schema.validate(data, {
@@ -95,6 +97,11 @@ const New: React.FC = () => {
             icon={AiFillCheckCircle}
             name="category"
             placeholder="Categoria"
+          />
+          <Input
+            icon={AiFillCheckCircle}
+            name="description"
+            placeholder="Descrição (não obrigatório)"
           />
           <Input icon={AiFillCheckCircle} name="type" placeholder="Tipo" />
 

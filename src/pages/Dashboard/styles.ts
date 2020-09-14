@@ -71,10 +71,6 @@ export const TableContainer = styled.section`
       font-weight: normal;
       color: #969cb3;
 
-      &.title {
-        color: #363f5f;
-      }
-
       &.income {
         color: #12a454;
       }
@@ -95,6 +91,10 @@ export const TableContainer = styled.section`
 
         &:hover {
           opacity: 0.7;
+        }
+
+        &.title {
+          color: #363f5f;
         }
       }
     }
