@@ -23,13 +23,10 @@
 ## 🔃 Test Specification
 ```
 ✔ Dashboard should be able to list the totla balance inside the cards.
-<br />
 ✔ Dashboard should be able to list transactions.
-<br />
 ✔ Dashboard should be able to navigate to the import page.
-<br />
 ✔ Dashboard should be able to upload a file.
-<br />
+
 ```
 ## 💡 Extras
 
