@@ -76,6 +76,13 @@ export const Description = styled.div`
   svg {
     margin-right: 16px;
   }
+
+  p {
+    margin-top: 8px;
+    font-size: 16px;
+    line-height: 24px;
+    color: #363f5f;
+  }
 `;
 
 export const DescriptionContent = styled.div`

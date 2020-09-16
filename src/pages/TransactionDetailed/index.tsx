@@ -100,7 +100,11 @@ const TransactionDetailed: React.FC = () => {
             Descrição
           </div>
 
-          <DescriptionContent>{transaction.description}</DescriptionContent>
+          {transaction.description !== null ? (
+            <DescriptionContent>{transaction.description}</DescriptionContent>
+          ) : (
+            <p>Você não registrou nenhuma descrição para essa transação.</p>
+          )}
         </Description>
       </Container>
     </>
