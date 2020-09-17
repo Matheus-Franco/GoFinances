@@ -121,11 +121,13 @@ const Dashboard: React.FC = () => {
     [history],
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function ReturnTransactionsWithoutFilter(): any {
     return transactions.map(transaction => (
       <tr key={transaction.id}>
         <td>
           <button
+            data-testid="navigate-to-datail"
             type="button"
             className="title"
             onClick={() => handleNavigateToDetail(transaction.id)}
@@ -154,11 +156,13 @@ const Dashboard: React.FC = () => {
     ));
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function ReturnFilteredTransactions(): any {
     return filterMatched.map(filter => (
       <tr key={filter.id}>
         <td>
           <button
+            data-testid="navigate-to-datail"
             type="button"
             className="title"
             onClick={() => handleNavigateToDetail(filter.id)}

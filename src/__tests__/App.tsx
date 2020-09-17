@@ -30,7 +30,7 @@ import App from '../App';
 const apiMock = new MockAdapter(api);
 
 const wait = (amount = 0): Promise<void> => {
-  return new Promise((resolve) => setTimeout(resolve, amount));
+  return new Promise(resolve => setTimeout(resolve, amount));
 };
 
 const actWait = async (amount = 0): Promise<void> => {
@@ -50,6 +50,7 @@ describe('Dashboard', () => {
           title: 'Loan',
           type: 'income',
           value: 1500,
+          description: 'This is a little description.',
           category: {
             id: '12a0cff7-8691-456d-b1ad-172d777f1942',
             title: 'Others',
@@ -65,6 +66,7 @@ describe('Dashboard', () => {
           title: 'Computer',
           type: 'income',
           value: 4500,
+          description: 'This is a little description.',
           category: {
             id: '12a0cff7-8691-456d-b1ad-172d777f1942',
             title: 'Sell',
@@ -80,6 +82,7 @@ describe('Dashboard', () => {
           title: 'Website Hosting',
           type: 'outcome',
           value: 50,
+          description: 'This is a little description.',
           category: {
             id: '12a0cff7-8691-456d-b1ad-172d777f1942',
             title: 'Hosting',
@@ -117,6 +120,7 @@ describe('Dashboard', () => {
           title: 'Loan',
           type: 'income',
           value: 1500,
+          description: 'Little description',
           category: {
             id: '12a0cff7-8691-456d-b1ad-172d777f1942',
             title: 'Others',
@@ -132,6 +136,7 @@ describe('Dashboard', () => {
           title: 'Computer',
           type: 'income',
           value: 4500,
+          description: 'Little description',
           category: {
             id: '12a0cff7-8691-456d-b1ad-172d777f1942',
             title: 'Sell',
@@ -147,6 +152,7 @@ describe('Dashboard', () => {
           title: 'Website Hosting',
           type: 'outcome',
           value: 50,
+          description: 'Little description',
           category: {
             id: '12a0cff7-8691-456d-b1ad-172d777f1942',
             title: 'Hosting',
@@ -203,6 +209,7 @@ describe('Dashboard', () => {
 
     const file = new File(
       [
+        // eslint-disable-next-line no-multi-str
         'title, type, value, category\
         Loan, income, 1500, Others\
         Website Hosting, outcome, 50, Others\
@@ -225,5 +232,17 @@ describe('Dashboard', () => {
     expect(getByText('import.csv')).toBeTruthy();
 
     await actWait();
+  });
+
+  it('should be able to navigate to the create transaction page', async () => {
+    const { getByText } = render(<App />);
+
+    await actWait(500);
+
+    fireEvent.click(getByText('Adicionar'));
+
+    await actWait();
+
+    expect(window.location.pathname).toEqual('/new');
   });
 });
