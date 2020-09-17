@@ -26,7 +26,6 @@
 ✔ Dashboard should be able to list transactions.
 ✔ Dashboard should be able to navigate to the import page.
 ✔ Dashboard should be able to upload a file.
-
 ```
 ## 💡 Extras
 
@@ -36,6 +35,7 @@
  - Loading animation while the request is not completed.
  - Option to delete a specific transaction.
  - Option to add a description about a specific transaction.
+ - Input to search transactions by title.
 
 ## 🚀 Techs
 - <a href="https://github.com/Rocketseat/unform">@unform/core</a>
