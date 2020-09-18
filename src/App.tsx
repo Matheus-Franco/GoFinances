@@ -4,14 +4,18 @@ import { ToastContainer } from 'react-toastify';
 
 import Routes from './routes';
 
+import AppProvider from './hooks';
+
 import GlobalStyle from './styles/global';
 
 const App: React.FC = () => (
   <>
     <GlobalStyle />
-    <Router>
-      <Routes />
-    </Router>
+    <AppProvider>
+      <Router>
+        <Routes />
+      </Router>
+    </AppProvider>
 
     <ToastContainer
       position="top-right"

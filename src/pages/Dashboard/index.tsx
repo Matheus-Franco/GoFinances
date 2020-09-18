@@ -1,18 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
-
 import { useHistory } from 'react-router-dom';
+
 import income from '../../assets/income.svg';
 import outcome from '../../assets/outcome.svg';
 import total from '../../assets/total.svg';
-
-import api from '../../services/api';
 
 import Header from '../../components/Header';
 import Loading from '../../components/Loading';
 import SearchInput from '../../components/SearchInput';
 
-import formatValue from '../../utils/formatValue';
+import { useTransaction } from '../../hooks/transactionsContext';
+import api from '../../services/api';
 
 import { Container, CardContainer, Card, TableContainer } from './styles';
 
@@ -27,55 +26,21 @@ interface Transaction {
   created_at: Date;
 }
 
-interface Balance {
-  income: string;
-  outcome: string;
-  total: string;
-}
-
 interface SearchParamProps {
   title?: string;
 }
 
 const Dashboard: React.FC = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [balance, setBalance] = useState<Balance>({} as Balance);
-  const [loading, setLoading] = useState<boolean>(true);
-
   const [searchValue, setSearchValue] = useState<string>('');
   const [filterMatched, setFilterMatched] = useState<Transaction[]>([]);
-
   const history = useHistory();
 
-  useEffect(() => {
-    async function loadTransactions(): Promise<void> {
-      const data = await api.get('/transactions');
-
-      const response = data.data;
-
-      const transactionsFormatted = response.transactions.map(
-        (transaction: Transaction) => ({
-          ...transaction,
-          formattedValue: formatValue(transaction.value),
-          formattedDate: new Date(transaction.created_at).toLocaleDateString(
-            'pt-br',
-          ),
-        }),
-      );
-
-      const balanceFormatted = {
-        income: formatValue(response.balance.income),
-        outcome: formatValue(response.balance.outcome),
-        total: formatValue(response.balance.total),
-      };
-
-      setLoading(false);
-      setTransactions(transactionsFormatted);
-      setBalance(balanceFormatted);
-    }
-
-    loadTransactions();
-  }, []);
+  const {
+    transactionsList,
+    balance,
+    loading,
+    handleDeleteTransaction,
+  } = useTransaction();
 
   useEffect(() => {
     async function filterSearchValue(): Promise<void> {
@@ -84,7 +49,7 @@ const Dashboard: React.FC = () => {
       if (searchValue.length > 0) {
         filter.title = searchValue;
 
-        const matched = transactions.filter(
+        const matched = transactionsList.filter(
           transaction => transaction.title === searchValue,
         );
 
@@ -97,20 +62,7 @@ const Dashboard: React.FC = () => {
     }
 
     filterSearchValue();
-  }, [searchValue, transactions]);
-
-  const handleDeleteTransaction = useCallback(
-    async (id: string) => {
-      await api.delete(`/transactions/${id}`);
-
-      const updatedTransactions = transactions.filter(
-        transaction => transaction.id !== id,
-      );
-
-      setTransactions(updatedTransactions);
-    },
-    [transactions],
-  );
+  }, [searchValue, transactionsList]);
 
   const handleNavigateToDetail = useCallback(
     async (id: string) => {
@@ -123,7 +75,7 @@ const Dashboard: React.FC = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function ReturnTransactionsWithoutFilter(): any {
-    return transactions.map(transaction => (
+    return transactionsList.map(transaction => (
       <tr key={transaction.id}>
         <td>
           <button
