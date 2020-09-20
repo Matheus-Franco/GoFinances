@@ -22,7 +22,7 @@
 
 ## 🔃 Test Specification
 ```
-✔ Dashboard should be able to list the totla balance inside the cards.
+✔ Dashboard should be able to list the total balance inside the cards.
 ✔ Dashboard should be able to list transactions.
 ✔ Dashboard should be able to navigate to the import page.
 ✔ Dashboard should be able to upload a file.
@@ -36,6 +36,7 @@
  - Option to delete a specific transaction.
  - Option to add a description about a specific transaction.
  - Input to search transactions by title.
+ - Context
 
 ## 🚀 Techs
 - <a href="https://github.com/Rocketseat/unform">@unform/core</a>
