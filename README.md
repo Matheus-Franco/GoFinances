@@ -36,7 +36,8 @@
  - Option to delete a specific transaction.
  - Option to add a description about a specific transaction.
  - Input to search transactions by title.
- - Context
+ - State management with context API.
+ - Chart to show the balance.
 
 ## 🚀 Techs
 - <a href="https://github.com/Rocketseat/unform">@unform/core</a>
@@ -50,6 +51,7 @@
 - <a href="https://styled-components.com/docs">styled-components</a>
 - <a href="https://www.typescriptlang.org/">typescript</a>
 - <a href="https://github.com/jquense/yup">yup</a>
+- <a href="https://github.com/jerairrest/react-chartjs-2">react-chartjs-2</a>
 
 
 ## 👨‍💻 Installation
