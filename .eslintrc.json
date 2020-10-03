@@ -30,6 +30,7 @@
     "prettier"
   ],
   "rules": {
+    "@typescript-eslint/interface-name-prefix": "off",
     "react/prop-types": "off",
     "no-unused-expressions": "off",
     "no-alert": "off",
