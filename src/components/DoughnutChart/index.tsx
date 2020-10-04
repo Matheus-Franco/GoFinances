@@ -13,7 +13,7 @@ const DoughnutChart: React.FC = () => {
 
   useEffect(() => {
     async function loadBalance(): Promise<void> {
-      const response = await api.get('/transactions');
+      const response = await api.get('/transactions/my');
 
       const updatedBalance = {
         income: response.data.balance.income,
