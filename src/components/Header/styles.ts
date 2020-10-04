@@ -31,6 +31,16 @@ export const Container = styled.div<ContainerProps>`
           opacity: 0.6;
         }
       }
+
+      > button {
+        margin-left: 32px;
+        background: transparent;
+        border: none;
+
+        svg {
+          color: #fff;
+        }
+      }
     }
   }
 `;

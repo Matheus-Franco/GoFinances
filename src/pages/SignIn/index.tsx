@@ -40,7 +40,7 @@ const SignIn: React.FC = () => {
 
   return (
     <>
-      <Header size="small" showNavigation={false} />
+      <Header size="small" isLogged={false} />
 
       <Container>
         <SignInContainer>
