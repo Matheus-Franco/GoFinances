@@ -45,7 +45,7 @@ export const TransactionsProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     async function loadTransactions(): Promise<void> {
-      const data = await api.get('/transactions');
+      const data = await api.get('/transactions/my');
 
       const response = data.data;
 
@@ -76,7 +76,7 @@ export const TransactionsProvider: React.FC = ({ children }) => {
   const handleDeleteTransaction = useCallback(
     async (id: string) => {
       await api.delete(`/transactions/${id}`);
-      const response = await api.get('/transactions');
+      const response = await api.get('/transactions/my');
 
       const updatedTransactions = transactions.filter(
         transaction => transaction.id !== id,
