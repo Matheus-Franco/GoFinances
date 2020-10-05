@@ -6,7 +6,13 @@ import { Link, useHistory } from 'react-router-dom';
 import Input from '../../components/Input';
 import Header from '../../components/Header';
 
-import { Container, SignInContainer, Button } from './styles';
+import {
+  Container,
+  SignInContainer,
+  Button,
+  BackButtonContainer,
+  BackButton,
+} from './styles';
 import api from '../../services/api';
 import { notifyError } from '../../components/Toast';
 
@@ -60,6 +66,10 @@ const SignOut: React.FC = () => {
             <Button type="submit">Cadastrar</Button>
           </Form>
         </SignInContainer>
+
+        <BackButtonContainer>
+          <Link to="/">Voltar para página principal</Link>
+        </BackButtonContainer>
       </Container>
     </>
   );

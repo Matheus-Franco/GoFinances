@@ -40,3 +40,17 @@ export const Button = styled.button`
   background: #ff872c;
   color: #fff;
 `;
+
+export const BackButtonContainer = styled.div`
+  padding: 16px;
+  width: 50%;
+  border-radius: 8px;
+
+  text-align: center;
+
+  a {
+    color: #5636d3;
+  }
+`;
+
+export const BackButton = styled.div``;
