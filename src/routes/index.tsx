@@ -5,7 +5,7 @@ import { Switch } from 'react-router-dom';
 import Route from './Route';
 
 import SignIn from '../pages/SignIn';
-
+import SignOut from '../pages/SignOut';
 import Dashboard from '../pages/Dashboard';
 import TransactionDetailed from '../pages/TransactionDetailed';
 import New from '../pages/New';
@@ -15,6 +15,7 @@ import Import from '../pages/Import';
 const Routes: React.FC = () => (
   <Switch>
     <Route path="/" exact component={SignIn} />
+    <Route path="/signout" component={SignOut} />
 
     <Route path="/graphs" component={Chart} isPrivate />
     <Route path="/dashboard" component={Dashboard} isPrivate />

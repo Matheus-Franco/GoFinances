@@ -13,7 +13,7 @@ export function notifySuccess(): void {
 }
 
 export function notifyError(): void {
-  toast.error('Preencha todos os campos!', {
+  toast.error('Algo de errado aconteceu.', {
     position: 'top-right',
     autoClose: 3000,
     hideProgressBar: false,

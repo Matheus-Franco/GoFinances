@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 import Header from '../../components/Header';
 import Input from '../../components/Input';
@@ -51,7 +51,7 @@ const SignIn: React.FC = () => {
             </div>
             <div>
               <p>Senha</p>
-              <Input name="password" />
+              <Input type="password" name="password" />
             </div>
             <Button type="submit">Entrar</Button>
           </Form>
@@ -59,7 +59,7 @@ const SignIn: React.FC = () => {
 
         <CreateAccountContainer>
           <p>Não possui uma conta?</p>
-          <a href="#">Faça parte do nosso time clicando aqui</a>
+          <Link to="/signout">Faça parte do nosso time clicando aqui</Link>
         </CreateAccountContainer>
       </Container>
     </>
