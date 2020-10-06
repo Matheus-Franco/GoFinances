@@ -8,10 +8,9 @@ import total from '../../assets/total.svg';
 
 import Header from '../../components/Header';
 import Loading from '../../components/Loading';
-import SearchInput from '../../components/SearchInput';
 
-import { useTransaction } from '../../hooks/transactionsContext';
 import api from '../../services/api';
+import formatValue from '../../utils/formatValue';
 
 import { Container, CardContainer, Card, TableContainer } from './styles';
 
@@ -26,43 +25,48 @@ interface Transaction {
   created_at: Date;
 }
 
-interface SearchParamProps {
-  title?: string;
+interface Balance {
+  income: string;
+  outcome: string;
+  total: string;
 }
 
 const Dashboard: React.FC = () => {
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [filterMatched, setFilterMatched] = useState<Transaction[]>([]);
+  const [transactions, setTransactions] = useState([] as Array<Transaction>);
+  const [balance, setBalance] = useState<Balance>({} as Balance);
+  const [loading, setLoading] = useState<boolean>(true);
+
   const history = useHistory();
 
-  const {
-    transactionsList,
-    balance,
-    loading,
-    handleDeleteTransaction,
-  } = useTransaction();
-
   useEffect(() => {
-    async function filterSearchValue(): Promise<void> {
-      const filter: SearchParamProps = {};
+    async function loadTransactions(): Promise<void> {
+      const data = await api.get('/transactions/my');
 
-      if (searchValue.length > 0) {
-        filter.title = searchValue;
+      const response = data.data;
 
-        const matched = transactionsList.filter(
-          transaction => transaction.title === searchValue,
-        );
+      const transactionsFormatted = response.transactions.map(
+        (transaction: Transaction) => ({
+          ...transaction,
+          formattedValue: formatValue(transaction.value),
+          formattedDate: new Date(transaction.created_at).toLocaleDateString(
+            'pt-br',
+          ),
+        }),
+      );
 
-        setFilterMatched(matched);
-      } else {
-        filter.title = '';
+      const balanceFormatted = {
+        income: formatValue(response.balance.income),
+        outcome: formatValue(response.balance.outcome),
+        total: formatValue(response.balance.total),
+      };
 
-        setFilterMatched([]);
-      }
+      setLoading(false);
+      setTransactions(transactionsFormatted);
+      setBalance(balanceFormatted);
     }
 
-    filterSearchValue();
-  }, [searchValue, transactionsList]);
+    loadTransactions();
+  }, [transactions]);
 
   const handleNavigateToDetail = useCallback(
     async (id: string) => {
@@ -73,75 +77,26 @@ const Dashboard: React.FC = () => {
     [history],
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function ReturnTransactionsWithoutFilter(): any {
-    return transactionsList.map(transaction => (
-      <tr key={transaction.id}>
-        <td>
-          <button
-            data-testid="navigate-to-datail"
-            type="button"
-            className="title"
-            onClick={() => handleNavigateToDetail(transaction.id)}
-          >
-            {transaction.title}
-          </button>
-        </td>
+  const handleDeleteTransaction = useCallback(
+    async (id: string) => {
+      await api.delete(`/transactions/${id}`);
+      const response = await api.get('/transactions/my');
 
-        <td className={transaction.type}>
-          {transaction.type === 'outcome' && ' - '}
-          {transaction.formattedValue}
-        </td>
+      const updatedTransactions = transactions.filter(
+        transaction => transaction.id !== id,
+      );
 
-        <td>{transaction.category.title}</td>
-        <td>{transaction.formattedDate}</td>
+      const updatedBalance = {
+        income: formatValue(response.data.balance.income),
+        outcome: formatValue(response.data.balance.outcome),
+        total: formatValue(response.data.balance.total),
+      };
 
-        <td>
-          <button
-            onClick={() => handleDeleteTransaction(transaction.id)}
-            type="button"
-          >
-            <FaTrashAlt />
-          </button>
-        </td>
-      </tr>
-    ));
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function ReturnFilteredTransactions(): any {
-    return filterMatched.map(filter => (
-      <tr key={filter.id}>
-        <td>
-          <button
-            data-testid="navigate-to-datail"
-            type="button"
-            className="title"
-            onClick={() => handleNavigateToDetail(filter.id)}
-          >
-            {filter.title}
-          </button>
-        </td>
-
-        <td className={filter.type}>
-          {filter.type === 'outcome' && ' - '}
-          {filter.formattedValue}
-        </td>
-
-        <td>{filter.category.title}</td>
-        <td>{filter.formattedDate}</td>
-
-        <td>
-          <button
-            onClick={() => handleDeleteTransaction(filter.id)}
-            type="button"
-          >
-            <FaTrashAlt />
-          </button>
-        </td>
-      </tr>
-    ));
-  }
+      setTransactions(updatedTransactions);
+      setBalance(updatedBalance);
+    },
+    [transactions],
+  );
 
   return (
     <>
@@ -172,12 +127,6 @@ const Dashboard: React.FC = () => {
           </Card>
         </CardContainer>
 
-        <SearchInput
-          placeholder="Título da transação"
-          value={searchValue}
-          onChange={text => setSearchValue(text.target.value)}
-        />
-
         {loading ? (
           <Loading />
         ) : (
@@ -193,11 +142,37 @@ const Dashboard: React.FC = () => {
               </thead>
 
               <tbody>
-                {filterMatched.length < 1 ? (
-                  <ReturnTransactionsWithoutFilter />
-                ) : (
-                  <ReturnFilteredTransactions />
-                )}
+                {transactions.map(transaction => (
+                  <tr key={transaction.id}>
+                    <td>
+                      <button
+                        data-testid="navigate-to-datail"
+                        type="button"
+                        className="title"
+                        onClick={() => handleNavigateToDetail(transaction.id)}
+                      >
+                        {transaction.title}
+                      </button>
+                    </td>
+
+                    <td className={transaction.type}>
+                      {transaction.type === 'outcome' && ' - '}
+                      {transaction.formattedValue}
+                    </td>
+
+                    <td>{transaction.category.title}</td>
+                    <td>{transaction.formattedDate}</td>
+
+                    <td>
+                      <button
+                        onClick={() => handleDeleteTransaction(transaction.id)}
+                        type="button"
+                      >
+                        <FaTrashAlt />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </TableContainer>

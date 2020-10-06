@@ -2,6 +2,7 @@ import React, { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import { useHistory, Link } from 'react-router-dom';
+import * as Yup from 'yup';
 
 import Header from '../../components/Header';
 import Input from '../../components/Input';
@@ -14,6 +15,8 @@ import {
   Button,
   CreateAccountContainer,
 } from './styles';
+
+import { notifyError } from '../../components/Toast';
 
 interface ISignInCredentials {
   email: string;
@@ -28,12 +31,27 @@ const SignIn: React.FC = () => {
 
   const authenticateSignIn = useCallback(
     async (credentials: ISignInCredentials) => {
-      await signIn({
-        email: credentials.email,
-        password: credentials.password,
-      });
+      try {
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required('E-mail obrigatório.')
+            .email('Digite um e-mail válido.'),
+          password: Yup.string().required('Senha obrigatória.'),
+        });
 
-      history.push('/dashboard');
+        await schema.validate(credentials, {
+          abortEarly: false,
+        });
+
+        await signIn({
+          email: credentials.email,
+          password: credentials.password,
+        });
+
+        history.push('/dashboard');
+      } catch (err) {
+        notifyError();
+      }
     },
     [signIn, history],
   );

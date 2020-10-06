@@ -11,7 +11,6 @@ import {
   SignInContainer,
   Button,
   BackButtonContainer,
-  BackButton,
 } from './styles';
 import api from '../../services/api';
 import { notifyError } from '../../components/Toast';
