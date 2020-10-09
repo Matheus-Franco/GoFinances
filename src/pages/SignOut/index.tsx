@@ -2,6 +2,7 @@ import React, { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import { Link, useHistory } from 'react-router-dom';
+import * as Yup from 'yup';
 
 import Input from '../../components/Input';
 import Header from '../../components/Header';
@@ -28,11 +29,19 @@ const SignOut: React.FC = () => {
   const handleCreateAccount = useCallback(
     async (data: ISignUpFormData) => {
       try {
-        await api.post('/users', {
-          name: data.name,
-          email: data.email,
-          password: data.password,
+        const schema = Yup.object().shape({
+          name: Yup.string().required('Nome é obrigatório.'),
+          email: Yup.string()
+            .required('E-mail é obrigatório.')
+            .email('Digite um e-mail válido.'),
+          password: Yup.string().required('Senha é obrigatória.'),
         });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        await api.post('/users', data);
 
         history.push('/');
       } catch (err) {
