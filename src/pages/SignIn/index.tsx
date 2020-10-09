@@ -8,6 +8,7 @@ import Header from '../../components/Header';
 import Input from '../../components/Input';
 
 import { useAuth } from '../../hooks/auth';
+import { ISignInCredentials } from './index.d';
 
 import {
   Container,
@@ -17,11 +18,6 @@ import {
 } from './styles';
 
 import { notifyError } from '../../components/Toast';
-
-interface ISignInCredentials {
-  email: string;
-  password: string;
-}
 
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);

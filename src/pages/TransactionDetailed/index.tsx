@@ -7,6 +7,7 @@ import api from '../../services/api';
 import Header from '../../components/Header';
 
 import formatValue from '../../utils/formatValue';
+import { ITransaction, idTransactionProp } from './index.d';
 
 import {
   Container,
@@ -15,29 +16,11 @@ import {
   DescriptionContent,
 } from './styles';
 
-interface Transaction {
-  id: string;
-  title: string;
-  value: number;
-  formattedValue: string;
-  formattedDate: string;
-  type: 'income' | 'outcome';
-  description: string;
-  category: {
-    title: string;
-  };
-  created_at: Date;
-}
-
-type idTransactionProp = {
-  id: string;
-};
-
 const TransactionDetailed: React.FC = () => {
   const { id } = useParams<idTransactionProp>();
 
-  const [transaction, setTransaction] = useState<Transaction>(
-    {} as Transaction,
+  const [transaction, setTransaction] = useState<ITransaction>(
+    {} as ITransaction,
   );
 
   useEffect(() => {

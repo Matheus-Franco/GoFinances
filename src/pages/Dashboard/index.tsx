@@ -12,28 +12,13 @@ import Loading from '../../components/Loading';
 import api from '../../services/api';
 import formatValue from '../../utils/formatValue';
 
+import { IBalance, ITransaction } from './index.d';
+
 import { Container, CardContainer, Card, TableContainer } from './styles';
 
-interface Transaction {
-  id: string;
-  title: string;
-  value: number;
-  formattedValue: string;
-  formattedDate: string;
-  type: 'income' | 'outcome';
-  category: { title: string };
-  created_at: Date;
-}
-
-interface Balance {
-  income: string;
-  outcome: string;
-  total: string;
-}
-
 const Dashboard: React.FC = () => {
-  const [transactions, setTransactions] = useState([] as Array<Transaction>);
-  const [balance, setBalance] = useState<Balance>({} as Balance);
+  const [transactions, setTransactions] = useState([] as Array<ITransaction>);
+  const [balance, setBalance] = useState<IBalance>({} as IBalance);
   const [loading, setLoading] = useState<boolean>(true);
 
   const history = useHistory();
@@ -45,7 +30,7 @@ const Dashboard: React.FC = () => {
       const response = data.data;
 
       const transactionsFormatted = response.transactions.map(
-        (transaction: Transaction) => ({
+        (transaction: ITransaction) => ({
           ...transaction,
           formattedValue: formatValue(transaction.value),
           formattedDate: new Date(transaction.created_at).toLocaleDateString(

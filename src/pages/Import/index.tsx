@@ -6,20 +6,17 @@ import filesize from 'filesize';
 import Header from '../../components/Header';
 import FileList from '../../components/FileList';
 import Upload from '../../components/Upload';
-
-import { Container, Title, ImportFileContainer, Footer } from './styles';
+import { notifyError } from '../../components/Toast';
 
 import alert from '../../assets/alert.svg';
 import api from '../../services/api';
 
-interface FileProps {
-  file: File;
-  name: string;
-  readableSize: string;
-}
+import { Container, Title, ImportFileContainer, Footer } from './styles';
+
+import { IFileProps } from './index.d';
 
 const Import: React.FC = () => {
-  const [uploadedFiles, setUploadedFiles] = useState<FileProps[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<IFileProps[]>([]);
   const history = useHistory();
 
   async function handleUpload(): Promise<void> {
@@ -39,6 +36,7 @@ const Import: React.FC = () => {
       history.push('/');
     } catch (err) {
       console.log(err.response.error);
+      notifyError();
     }
   }
 

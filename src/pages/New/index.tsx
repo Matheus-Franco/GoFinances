@@ -14,22 +14,16 @@ import Input from '../../components/Input';
 
 import { notifySuccess, notifyError } from '../../components/Toast';
 
-import { Container, Title } from './styles';
+import { ITransactionFormData } from './index.d';
 
-interface SignUpFormData {
-  title: string;
-  value: number;
-  category: string;
-  type: string;
-  description: string;
-}
+import { Container, Title } from './styles';
 
 const New: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
 
   const handleSubmit = useCallback(
-    async (data: SignUpFormData) => {
+    async (data: ITransactionFormData) => {
       try {
         formRef.current?.setErrors({});
 

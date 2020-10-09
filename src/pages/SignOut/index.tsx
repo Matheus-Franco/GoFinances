@@ -7,6 +7,8 @@ import * as Yup from 'yup';
 import Input from '../../components/Input';
 import Header from '../../components/Header';
 
+import { ISignUpFormData } from './index.d';
+
 import {
   Container,
   SignInContainer,
@@ -15,12 +17,6 @@ import {
 } from './styles';
 import api from '../../services/api';
 import { notifyError } from '../../components/Toast';
-
-interface ISignUpFormData {
-  name: string;
-  email: string;
-  password: string;
-}
 
 const SignOut: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
