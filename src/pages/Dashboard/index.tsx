@@ -51,7 +51,7 @@ const Dashboard: React.FC = () => {
     }
 
     loadTransactions();
-  }, [transactions]);
+  }, []);
 
   const handleNavigateToDetail = useCallback(
     async (id: string) => {
