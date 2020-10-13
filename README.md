@@ -35,9 +35,9 @@
  - Loading animation while the request is not completed.
  - Option to delete a specific transaction.
  - Option to add a description about a specific transaction.
- - Input to search transactions by title.
  - State management with context API.
  - Chart to show the balance.
+ - SignIn/SignOut
 
 ## 🚀 Techs
 - <a href="https://github.com/Rocketseat/unform">@unform/core</a>
