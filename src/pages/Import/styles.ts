@@ -1,11 +1,23 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { shade } from 'polished';
+
+const appearFromLeft = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  } to {
+    opacity: 1;
+    transform: translateX(0)
+  }
+`;
 
 export const Container = styled.div`
   width: 100%;
   max-width: 736px;
   margin: 0 auto;
   padding: 40px 20px;
+
+  animation: ${appearFromLeft} 1s;
 `;
 
 export const Title = styled.h1`

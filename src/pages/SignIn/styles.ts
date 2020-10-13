@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -11,12 +11,24 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
+const appearFromLeft = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  } to {
+    opacity: 1;
+    transform: translateX(0)
+  }
+`;
+
 export const SignInContainer = styled.div`
   background: #e7e7e7;
   padding: 32px;
   width: 50%;
   border-radius: 8px;
   margin-bottom: 48px;
+
+  animation: ${appearFromLeft} 1s;
 
   p {
     margin-bottom: 4px;
@@ -45,6 +57,8 @@ export const CreateAccountContainer = styled.div`
   padding: 32px;
   width: 50%;
   border-radius: 8px;
+
+  animation: ${appearFromLeft} 1s;
 
   text-align: center;
 
