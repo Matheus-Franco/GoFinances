@@ -2,11 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import api from '../../services/api';
 
-// eslint-disable-next-line @typescript-eslint/interface-name-prefix
-interface IBalance {
-  income: number;
-  outcome: number;
-}
+import IBalance from './index.d';
 
 const DoughnutChart: React.FC = () => {
   const [balance, setBalance] = useState<IBalance>({} as IBalance);

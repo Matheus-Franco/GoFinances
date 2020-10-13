@@ -7,10 +7,7 @@ import { Container } from './styles';
 import Logo from '../../assets/logo.svg';
 import { useAuth } from '../../hooks/auth';
 
-interface HeaderProps {
-  size?: 'small' | 'large';
-  isLogged?: boolean;
-}
+import HeaderProps from './index.d';
 
 const Header: React.FC<HeaderProps> = ({
   size = 'large',
