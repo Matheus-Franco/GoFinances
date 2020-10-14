@@ -35,7 +35,7 @@ const DoughnutChart: React.FC = () => {
 
   return (
     <>
-      <Doughnut data={data} height={80} />
+      <Doughnut data={data} height={120} />
 
       {balance.income > balance.outcome ? (
         <PositiveBalance />
@@ -49,8 +49,7 @@ const DoughnutChart: React.FC = () => {
 const PositiveBalance = (): JSX.Element => {
   return (
     <div>
-      <p>Suas finanças estão controladas,</p>
-      <p>continue assim!</p>
+      <p>Suas finanças estão controladas, continue assim!</p>
     </div>
   );
 };
@@ -58,8 +57,7 @@ const PositiveBalance = (): JSX.Element => {
 const NegativeBalance = (): JSX.Element => {
   return (
     <div>
-      <p>Suas finanças não estão seguras,</p>
-      <p>reveja seus gastos!</p>
+      <p>Suas finanças não estão seguras, reveja seus gastos!</p>
     </div>
   );
 };

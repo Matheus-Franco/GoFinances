@@ -3,7 +3,7 @@ import React from 'react';
 import DoughnutChart from '../../components/DoughnutChart';
 import Header from '../../components/Header';
 
-import { Container } from './styles';
+import { Container, TitleChart, ContentWrapper } from './styles';
 
 const Chart: React.FC = () => {
   return (
@@ -11,7 +11,11 @@ const Chart: React.FC = () => {
       <Header size="small" />
 
       <Container>
-        <DoughnutChart />
+        <TitleChart>Gráfico de entradas e saídas</TitleChart>
+
+        <ContentWrapper>
+          <DoughnutChart />
+        </ContentWrapper>
       </Container>
     </>
   );
