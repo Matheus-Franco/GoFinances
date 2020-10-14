@@ -32,6 +32,8 @@ export const SignInContainer = styled.div`
 
   p {
     margin-bottom: 4px;
+    color: #363f5f;
+    font-size: 18px;
   }
 
   div {

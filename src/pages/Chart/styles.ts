@@ -15,16 +15,18 @@ export const Container = styled.div`
   flex-direction: column;
 
   margin: 0 auto;
+  margin-top: 24px;
   max-width: 1120px;
 
   animation: ${appearFromLeft} 1s;
 `;
 
 export const TitleChart = styled.div`
-  color: #969cb2;
-  font-size: 32px;
+  color: #363f5f;
+  font-size: 36px;
   border-radius: 8px;
   padding: 16px;
+  margin: 0 auto;
 `;
 
 export const ContentWrapper = styled.div`
@@ -34,10 +36,13 @@ export const ContentWrapper = styled.div`
   canvas {
     width: 200px;
     height: 200px;
+    background: #fff;
+    padding: 8px;
+    border-radius: 8px;
   }
 
   div {
-    margin-top: 32px;
+    margin-top: 16px;
     background: #fff;
     border-radius: 8px;
     padding: 16px;

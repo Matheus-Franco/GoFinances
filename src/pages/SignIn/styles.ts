@@ -32,6 +32,8 @@ export const SignInContainer = styled.div`
 
   p {
     margin-bottom: 4px;
+    color: #363f5f;
+    font-size: 18px;
   }
 
   div {
@@ -57,7 +59,7 @@ export const CreateAccountContainer = styled.div`
   padding: 32px;
   width: 50%;
   border-radius: 8px;
-
+  color: #363f5f;
   animation: ${appearFromLeft} 1s;
 
   text-align: center;
